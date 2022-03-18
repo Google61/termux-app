@@ -112,3 +112,12 @@ jobs:
           path: |
             ${{ env.APK_DIR_PATH }}/sha256sums
             ${{ env.APK_DIR_PATH }}/output-metadata.json
+
+      - name: Upload release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.APK_DIR_PATH }}/${{ env.APK_BASENAME_PREFIX }}_*.apk
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
